@@ -1,7 +1,10 @@
 from sqlalchemy import create_engine, event, Engine
-from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.orm import scoped_session, sessionmaker, declarative_base
 
-engine = create_engine("sqlite:///database.db")
+engine = create_engine("sqlite:///database.db", echo=True)
+
+Base = declarative_base()
+Base.metadata.create_all(engine)
 
 session = scoped_session(
     sessionmaker(
