@@ -11,13 +11,3 @@ class Task(Base):
     description = Column(String(80), nullable=False)
     due_date = Column(DateTime, default=datetime.utcnow())
     status = Column(String(80), nullable=False)
-
-
-
-
-
-# - TaskID (Primary Key)
-# - UserID (Foreign Key)
-# - Description
-# - DueDate
-# - Status
