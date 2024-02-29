@@ -1,20 +1,19 @@
-from sqlalchemy import Column, Integer, String
+import uuid
+from sqlalchemy import UUID, Column, Integer, String
+from sqlalchemy.orm import Relationship
 from db_setup import Base
+from models.tasks import Task
 
 
 class User(Base):
     __tablename__ =  "users"
 
-    user_id = Column(Integer, primary_key=True, autoincrement=True)
-    user_name = Column(String(80), nullable=False)
-    password = Column(String(80), unique=True,nullable=False)
-    role = Column(String(80), nullable=False)    
+    id = Column(String(36), primary_key=True, default=str(uuid.uuid4))
+    name = Column(String(80), nullable=False)
+    mobile = Column(String(80), unique=True, nullable=False)
+    role = Column(String(80), nullable=False)
 
-    def __init__(self, user_id, user_name, password, role):
-        self.user_id = user_id
-        self.user_name = user_name
-        self.password = password
-        self.role = role
+    tasks = Relationship("Task", backref="tasks")
 
     def __repr__(self):
-        return f"{self.user_name} {self.role}"
+        return f"{self.name} {self.role}"
