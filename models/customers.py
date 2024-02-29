@@ -11,5 +11,5 @@ class Customer(Base):
     email = Column(String(80), uniqe=True, nullable=False)
     phone_no = Column(Integer, unique=True, nullable=False)
 
-    lead = Relationship("Lead", back_populates="customer")
-
+    lead = Relationship("Lead",  back_populates="customer")
+    

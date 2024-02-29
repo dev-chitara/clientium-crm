@@ -1,7 +1,8 @@
 import uuid
 from datetime import datetime
-
 from sqlalchemy import Column, UUID, Integer, String, ForeignKey, DateTime
+from sqlalchemy.orm import Relationship
+# from models.users import User
 from db_setup import Base
 
 
@@ -13,3 +14,8 @@ class Task(Base):
     description = Column(String(80), nullable=False)
     due_date = Column(DateTime, default=datetime.utcnow())
     status = Column(String(80), nullable=False)
+
+    users = Relationship("User", backref="users")
+
+    def __repr__(self):
+        return f"{self.description} {self.due_date} {self.status}"

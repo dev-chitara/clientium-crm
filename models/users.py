@@ -13,7 +13,7 @@ class User(Base):
     mobile = Column(String(80), unique=True, nullable=False)
     role = Column(String(80), nullable=False)
 
-    tasks = Relationship("Task", backref="tasks")
+    tasks = Relationship("Task", backref="tasks", passive_deletes=True)
 
     def __repr__(self):
         return f"{self.name} {self.role}"
