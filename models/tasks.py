@@ -2,7 +2,6 @@ import uuid
 from datetime import datetime
 from sqlalchemy import Column, UUID, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import Relationship
-# from models.users import User
 from db_setup import Base
 
 
