@@ -1,7 +1,7 @@
 
 class UserSchema:
 
-    def __init__(self, id, name, mobile, role):
+    def __init__(self,name, mobile, role, id=None):
         self.id = id
         self.name = name
         self.mobile = mobile
@@ -15,3 +15,8 @@ class UserSchema:
             "mobile": self.mobile,
             "role": self.role
         }
+
+
+    def to_absolute_dict(self):
+        fields = self.to_dict()
+        return {key: fields[key] for key in fields if fields.get(key)}

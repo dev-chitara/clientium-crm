@@ -11,5 +11,5 @@ class User(Base):
     mobile = Column(String(80), unique=True, nullable=False)
     role = Column(String(80), nullable=False)
 
-    def __repr__(self):
+    def __str__(self):
         return f"{self.name} {self.role}"
