@@ -1,49 +1,54 @@
-from sqlalchemy.orm import Session
-from db_setup import engine, Base, Session,get_db
-from models.users import User
-from models.tasks import Task
-from models.customers import Customer
 from logic.users import UserService
 from logic.tasks import TaskService
 from logic.customers import CustomerService
-
-Base.metadata.create_all(engine)
-
-# user_service = UserService()
-
-# print(user_service.create_users(id=1, name="Dev",mobile="12345678",role="admin"))
-
-# print(user_service.create_users(id=2, name="Rahul", mobile="132828782", role="admin"))
-
-# print(user_service.create_users(id=3, name="Harshit", mobile="8964198691", role="sales"))
-    
-# print(user_service.create_users(id=4, name="Mohit", mobile="785127192", role="admin"))
-
-# for user in user_service.fetch_users():
-#     print("user: name", user.name)
-
-# print(user_service.fetch_user("<function uuid4 at 0x7f16c87a8b80>"))
-
-# print(user_service.update_user(user_id="<function uuid4 at 0x7f56cff78c10>", id=4, name="Mohit", mobile="785127192", role="sales"))
+from logic.leads import LeadService
 
 
-# print(user_service.delete_user("<function uuid4 at 0x7f874d0a8b80>")
+data = [
+    {
+        "name": "John Doe",
+        "lead": {
+            "contact_info": "9988776655",
+            "status": "new"
+        },
+        "customer": {
+            "email": "john@mail.com",
+            "phone": "9988776655"
+        }
+    },
+    {
+
+        "name": "Jane Doe",
+        "lead": {
+            "contact_info": "8877665544",
+            "status": "new"
+        },
+        "customer": {
+            "email": "jane@mail.com",
+            "phone": "8877665544"
+        }
+    }
+]
 
 
-# task_service = TaskService()
 
-# print(task_service.create_tasks(id=1, user_id="<function uuid4 at 0x7f16c87a8b80>", description="checking leads status", due_date="", status="pending"))
+lead_service = LeadService()
+customer_service = CustomerService()
 
-# print(task_service.create_tasks(id=2, user_id="<function uuid4 at 0x7f4bccca4c10>", description="managing new leads", due_date="", status="pending"))
+for record in data:
+    created_lead = lead_service.create_leads(
+        name=record["name"], 
+        **record["lead"]
+    )
+    print(f"Lead name: {created_lead.name}")
+    print(f"Lead status: {created_lead.status}")
 
-# print(task_service.create_tasks(id=3, user_id="<function uuid4 at 0x7f0646aa4c10>", description="checking sales", due_date="", status="completed"))
 
-# for task in task_service.fetch_tasks():
-#     print(task)
-
-# print(task_service.fetch_task("<function uuid4 at 0x7f17f5ea4b80>"))
-
-# print(task_service.update_task(task_id="<function uuid4 at 0x7f17f5ea4b80>",id=4 ,user_id="<function uuid4 at 0x7f4bccca4c10>", description="managing new leads", due_date="", status="completed"))
-
-# print(task_service.delete_task("<function uuid4 at 0x7f0a00ea0b80>"))
+    created_customer = customer_service.create_customers(
+        lead_id=created_lead.id, 
+        name=created_lead.name, 
+        **record["customer"]
+    )
+    print(f"Customer name: {created_customer.name}")
+    print(f"Customer status: {created_customer.phone}")
 

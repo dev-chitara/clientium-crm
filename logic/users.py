@@ -16,7 +16,7 @@ class UserService:
 
     def create_users(self, **kwargs):
         create_user_data = UserSchema(**kwargs).to_dict()
-        user_id = create_user_data.pop("id")
+        create_user_data.pop("id")
 
         user_object = User(**create_user_data)
         self.db.add(user_object)

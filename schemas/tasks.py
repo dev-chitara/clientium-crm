@@ -1,31 +1,22 @@
 
 class TaskSchema:
     
-    def __init__(self, id, user_id, description, due_date, status):
+    def __init__(self, id, user_id, lead_id,description, due_date, status, customer_id):
         self.id = id
         self.user_id = user_id
+        self.lead_id = lead_id
         self.description = description
         self.due_date = due_date
         self.status = status
+        self.customer_id = customer_id
     
     def to_dict(self):
         return {
             "id": self.id,
-            "user_id": self.user_id,
             "description": self.description,
             "due_date": self.due_date,
-            "status": self.status
+            "status": self.status,
+            "user_id": self.user_id,
+            "lead_id": self.lead_id,
+            "customer_id": self.customer_id
         }
-        
-
-
-
-
-
-
-
-# id = Column(String(36), primary_key=True, default=str(uuid.uuid4))
-# user_id = Column(String(36), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, unique=True)
-# description = Column(String(80), nullable=False)
-# due_date = Column(DateTime, default=datetime.utcnow())
-# status = Column(String(80), nullable=False)

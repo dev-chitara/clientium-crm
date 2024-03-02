@@ -1,17 +1,22 @@
 
 class LeadSchema:
-    def __init__(self, id, customer_id, contact_info, source, status):
+
+    def __init__(self, name, contact_info, status, id=None):
         self.id = id
-        self.customer_id = customer_id
+        self.name = name
         self.contact_info = contact_info
-        self.source = source
         self.status = status
+
 
     def to_dict(self):
         return {
-            "id": self.id,
-            "customer_id": self.customer_id,
+            "id": self.id,      
+            "name": self.name,    
             "contact_info": self.contact_info,
-            "source": self.source,
             "status": self.status
-        }        
+        }
+    
+
+    def to_absolute_dict(self):
+        fields = self.to_dict()
+        return {key: fields[key] for key in fields if fields.get(key)}

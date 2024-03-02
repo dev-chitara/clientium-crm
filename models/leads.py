@@ -1,17 +1,19 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+import uuid
+from sqlalchemy import Column, Integer, UUID, String, ForeignKey
 from sqlalchemy.orm import Relationship
 from db_setup import Base
+
 
 class Lead(Base):
     __tablename__ = "leads"
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    customer_id = Column(Integer, ForeignKey("customers.id", ondelete="CASCADE"), nullable=False, index=True, unique=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True)
+    name = Column(String(80), nullable=False)
     contact_info = Column(String(80), nullable=False)
-    source = Column(String(80), nullable=False)
     status = Column(String(80), nullable=False)
 
-    customer = Relationship("Customer", backref="customers")
+    customer = Relationship("Customer", backref="customers", uselist=False)
 
-    def __repr__(self):
-        return f"{self.source} {self.status}"
+
+    def __str__(self):
+        return f"{self.name} {self.contact_info}"
