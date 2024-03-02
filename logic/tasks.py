@@ -1,7 +1,7 @@
-from db_setup import get_db, Session
+from datetime import datetime
+from db_setup import get_db
 from models.tasks import Task
 from schemas.tasks import TaskSchema
-from models.users import User
 
 
 class TaskService:
@@ -17,6 +17,7 @@ class TaskService:
 
     def create_tasks(self, **kwargs):
         create_task_data = TaskSchema(**kwargs).to_absolute_dict()
+        create_task_data["due_date"] = datetime.strptime(create_task_data["due_date"], "%Y-%m-%d").date()
 
         task_object = Task(**create_task_data)
         self.db.add(task_object)
